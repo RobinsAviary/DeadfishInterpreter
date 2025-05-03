@@ -15,4 +15,4 @@ All parameters can be shortened to their first letter.
 This interpreter exists entirely within a single source code file, so building should be trivial with any program.
 
 ## License
-This interpreter and it's source code are provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
+This interpreter and its source code are provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
