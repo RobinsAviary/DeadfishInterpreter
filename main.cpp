@@ -91,9 +91,9 @@ int main(int argc, char *argv[]) {
 			else if (op == 's') opS();
 			else if (op == 'o') {
 				opO();
-				log << acc;
+				log << acc << " ";
 			}
-			else if (op == 'h') break;
+			else if (op == 'h') return 0;
 
 			accCheck();
 		}
@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
 			else if (op == 'd') opD();
 			else if (op == 's') opS();
 			else if (op == 'o') opO();
+			else if (op == 'h') return 0;
 
 			accCheck();
 		}
