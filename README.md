@@ -13,3 +13,6 @@ All parameters can be shortened to their first letter.
 
 ## Building
 This interpreter exists entirely within a single source code file, so building should be trivial with any program.
+
+## License
+This interpreter is provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
