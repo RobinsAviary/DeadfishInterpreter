@@ -7,6 +7,19 @@
 std::string code;
 bool terminalActive = true;
 
+std::string incrementOp = "i";
+std::string decrementOp = "d";
+std::string squareOp = "s";
+std::string outputOp = "o";
+// Custom operators
+std::string haltOp = "h";
+std::string rootOp = "r";
+std::string charOp = "c"; // Makes sure the value is valid first.
+
+void processOp(std::string op) {
+
+}
+
 int acc = 0;
 
 char argPrefix = '-';
@@ -18,7 +31,7 @@ void accCheck() {
 		if (acc == -1 || acc == 256) acc = 0;
 	}
 	else {
-		// A fix for deadfish's odd implementation that better matches specifications.
+		// A fix for deadfish's odd implementation that better matches specifications / typical behavior.
 		while (acc < 0) {
 			acc += 256;
 		}
@@ -86,8 +99,8 @@ int main(int argc, char *argv[]) {
 		std::ofstream log("log.txt");
 
 		for (char op : code) {
-			if (op == 'i') opI();
-			else if (op == 'd') opD();
+			if (op == incrementOp) opI();
+			else if (op == decrementOp) opD();
 			else if (op == 's') opS();
 			else if (op == 'o') {
 				opO();
