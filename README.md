@@ -1,5 +1,5 @@
 # Robinfish Interpreter
-This is a [Deadfish](https://esolangs.org/wiki/Deadfish) [Interpreter](https://www.geeksforgeeks.org/introduction-to-interpreters/) written in [C++20](https://en.cppreference.com/w/cpp/20). (Overkill? Maybe.) It contains various other operators from a smattering of Deadfish extensions, thus the different name.
+This is a [Deadfish](https://esolangs.org/wiki/Deadfish) [Interpreter](https://www.geeksforgeeks.org/introduction-to-interpreters/) written in [C++20](https://en.cppreference.com/w/cpp/20). (Overkill? Probably.) It contains various other operators from a smattering of Deadfish extensions, thus the different name.
 
 It supports ``.df`` and ``.txt`` files being dragged into it/specified as well as a terminal mode when the application is directly opened.
 
