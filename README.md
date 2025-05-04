@@ -16,6 +16,7 @@ It supports ``.df`` and ``.txt`` files being dragged into it/specified as well a
 | c        | Output the accumulator as an ASCII character. _**NOTE:**_ Numbers outside 0-255 do nothing. |
 | w        | Print "Hello, World!"                                                                 |
 | ;        | Reset the accumulator to zero.                                                        |
+| x2       | Multiply the accumulator by 2.                                                        |
 
 ## Command Line Parameters
 All command line parameters begin with ``-``
