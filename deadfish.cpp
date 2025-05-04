@@ -8,6 +8,7 @@
 std::string code;
 bool terminalActive = true;
 
+std::string divOp = "d2";
 std::string twoOp = "x2";
 std::string incrementOp = "i";
 std::string decrementOp = "d";
@@ -20,17 +21,21 @@ std::string charOp = "c"; // Makes sure the value is valid first.
 std::string worldOp = "w";
 std::string resetOp = ";";
 
-std::vector<std::string> dictionary = { twoOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+std::vector<std::string> dictionary = { twoOp, divOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+
+std::vector<std::string> RobinfishInterpreter::getDictionary() {
+	return dictionary;
+}
 
 template <typename T> int sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
 
-void DeadfishInterpreter::reset() {
+void RobinfishInterpreter::reset() {
 	acc = 0;
 }
 
-std::string DeadfishInterpreter::process(std::string code) {
+std::string RobinfishInterpreter::process(std::string code) {
 	std::string result = "";
 
 	std::string_view codeView = code;
@@ -72,6 +77,9 @@ std::string DeadfishInterpreter::process(std::string code) {
 			if (op == twoOp) {
 				opx2();
 			}
+			if (op == divOp) {
+				opd2();
+			}
 			else if (op == incrementOp) {
 				opI();
 			}
@@ -111,6 +119,6 @@ std::string DeadfishInterpreter::process(std::string code) {
 	return result;
 }
 
-void DeadfishInterpreter::opH() {
+void RobinfishInterpreter::opH() {
 
 }
