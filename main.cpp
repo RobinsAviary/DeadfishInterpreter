@@ -3,11 +3,16 @@
 #include <filesystem>
 #include <fstream>
 
-DeadfishInterpreter interpreter;
+RobinfishInterpreter interpreter;
 
-std::string version = "1.0.1";
+std::string version = "1.0.2";
+
+void printVersion() {
+	std::cout << "Robinfish Interpreter v" << version << std::endl;
+}
 
 int main(int argc, char** argv) {
+	// Search for the first file and process it.
 	for (int i = 0; i < argc; i++) {
 		std::string_view arg = argv[i];
 
@@ -32,18 +37,40 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	std::cout << "Deadfish Interpreter v" << version << std::endl;
+	// Actual interface for users.
+	printVersion();
 
 	bool looping = true;
 	while (looping) {
 		std::cout << ">> ";
 		std::string input;
 		std::cin >> input;
-		if (input == "cls") {
+		if (input == "cls" || input == "clear") {
 			std::cout << "\033[2J\033[1;1H"; // Clear screen
 		}
 		else if (input == "reset") {
 			interpreter.reset();
+		}
+		else if (input == "help") {
+			auto dictionary = interpreter.getDictionary();
+			std::cout << "Supported operators: ";
+			unsigned int dictionarySize = dictionary.size();
+			for (int i = 0; i < dictionarySize; i++) {
+				std::string op = dictionary[i];
+				std::cout << op;
+				if (i == dictionarySize - 1) {
+					std::cout << "." << std::endl;
+				}
+				else {
+					std::cout << ", ";
+				}
+			}
+		}
+		else if (input == "version") {
+			printVersion();
+		}
+		else if (input == "about") {
+			std::cout << "Robinfish interpreter v" + version + "; Inspired by Deadfish; Written by Robin; robinsaviary.com" << std::endl;
 		}
 		else std::cout << interpreter.process(input) << std::endl;
 	}

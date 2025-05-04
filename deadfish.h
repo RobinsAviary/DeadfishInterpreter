@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include <vector>
 
-class DeadfishInterpreter {
+class RobinfishInterpreter {
 public:
 	bool mathFix = false; // Fixes deadfish's infamous bug
 	bool wrapMode = false; // Variable overflows/underflows like on the 6502.
@@ -12,21 +13,17 @@ public:
 
 	void reset();
 
+	std::vector<std::string> getDictionary();
+
 protected:
 	inline void opI() { acc += 1; }
 	inline void opD() { acc -= 1; }
 	inline void opS() { acc *= acc; }
 	inline int opO() { return acc; }
 	inline void opR() { acc = sqrt(acc); }
+	inline void opx2() { acc *= 2; }
+	inline void opd2() { acc /= 2; }
 	void opH();
-	void opC();
-	void opW();
-	//inline void op0() { acc = 0; }
-
-	std::string haltOp = "h";
-	std::string rootOp = "r";
-	std::string charOp = "c"; // Makes sure the value is valid first.
-	std::string worldOp = "w";
 
 	int acc = 0; // Accumulator
 };
