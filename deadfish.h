@@ -18,10 +18,8 @@ protected:
 	inline void opS() { acc *= acc; }
 	inline int opO() { return acc; }
 	inline void opR() { acc = sqrt(acc); }
+	inline void opx2() { acc *= 2; }
 	void opH();
-	void opC();
-	void opW();
-	//inline void op0() { acc = 0; }
 
 	std::string haltOp = "h";
 	std::string rootOp = "r";

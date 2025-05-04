@@ -8,6 +8,7 @@
 std::string code;
 bool terminalActive = true;
 
+std::string twoOp = "x2";
 std::string incrementOp = "i";
 std::string decrementOp = "d";
 std::string squareOp = "s";
@@ -19,7 +20,7 @@ std::string charOp = "c"; // Makes sure the value is valid first.
 std::string worldOp = "w";
 std::string resetOp = ";";
 
-std::vector<std::string> dictionary = { incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+std::vector<std::string> dictionary = { twoOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
 
 template <typename T> int sgn(T val) {
 	return (T(0) < val) - (val < T(0));
@@ -68,7 +69,10 @@ std::string DeadfishInterpreter::process(std::string code) {
 		}
 
 		if (op != "") {
-			if (op == incrementOp) {
+			if (op == twoOp) {
+				opx2();
+			}
+			else if (op == incrementOp) {
 				opI();
 			}
 			else if (op == decrementOp) {
