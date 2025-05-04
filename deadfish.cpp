@@ -5,8 +5,6 @@
 #include <filesystem>
 #include <fstream>
 
-std::string version = "1.0.1";
-
 std::string code;
 bool terminalActive = true;
 
@@ -18,8 +16,14 @@ std::string outputOp = "o";
 std::string haltOp = "h";
 std::string rootOp = "r";
 std::string charOp = "c"; // Makes sure the value is valid first.
+std::string worldOp = "w";
+std::string resetOp = ";";
 
-std::vector<std::string> dictionary = { incrementOp, decrementOp, squareOp, outputOp };
+std::vector<std::string> dictionary = { incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+
+template <typename T> int sgn(T val) {
+	return (T(0) < val) - (val < T(0));
+}
 
 void DeadfishInterpreter::reset() {
 	acc = 0;
@@ -33,6 +37,22 @@ std::string DeadfishInterpreter::process(std::string code) {
 	bool halt = false;
 
 	while (codeView.length() > 0) {
+		if (mathFix) {
+			if (acc < 0 || acc > 255) {
+				if (wrapMode) {
+					while (acc < 0 || acc > 255) {
+						acc += sgn(acc) * -1 * 256;
+					}
+				}
+				else {
+					acc = 0;
+				}
+			}
+		}
+		else if (acc == -1 || acc == 256) {
+			acc = 0;
+		}
+
 		std::string op = "";
 
 		unsigned int dictionarySize = dictionary.size();
@@ -61,8 +81,32 @@ std::string DeadfishInterpreter::process(std::string code) {
 				std::string toAdd = std::to_string(opO()) + " ";
 				result += toAdd;
 			}
+			else if (op == rootOp) {
+				opR();
+			}
+			else if (op == worldOp) {
+				result += "Hello, World!";
+			}
+			else if (op == haltOp) {
+				return result;
+			}
+			else if (op == charOp) {
+				if (acc >= 0 && acc <= 255) {
+					result += static_cast<char>(acc);
+				}
+			}
+			else if (op == resetOp) {
+				acc = 0;
+			}
+		}
+		else {
+			codeView = codeView.substr(1);
 		}
 	}
 
 	return result;
+}
+
+void DeadfishInterpreter::opH() {
+
 }

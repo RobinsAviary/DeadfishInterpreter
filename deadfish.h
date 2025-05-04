@@ -10,16 +10,23 @@ public:
 
 	inline int getAccumulator() { return acc; }
 
+	void reset();
+
 protected:
 	inline void opI() { acc += 1; }
 	inline void opD() { acc -= 1; }
 	inline void opS() { acc *= acc; }
 	inline int opO() { return acc; }
 	inline void opR() { acc = sqrt(acc); }
-	//void opC();
-	inline void op0() { acc = 0; }
+	void opH();
+	void opC();
+	void opW();
+	//inline void op0() { acc = 0; }
 
-	void reset();
+	std::string haltOp = "h";
+	std::string rootOp = "r";
+	std::string charOp = "c"; // Makes sure the value is valid first.
+	std::string worldOp = "w";
 
 	int acc = 0; // Accumulator
 };
