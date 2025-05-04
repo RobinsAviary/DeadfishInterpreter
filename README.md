@@ -3,6 +3,20 @@ This is a [Deadfish](https://esolangs.org/wiki/Deadfish) [Interpreter](https://w
 
 It supports ``.df`` and ``.txt`` files being dragged into it/specified as well as a terminal mode when the application is directly opened.
 
+## Operators
+
+| Operator | Explantation                                                                          |
+| -------- | ------------------------------------------------------------------------------------- |
+| i        | Increment the accumulator.                                                            |
+| d        | Decrement the accumulator.                                                            |
+| s        | Square the accumulator.                                                               |
+| o        | Output the accumulator (As a number).                                                 |
+| h        | Halt the program.                                                                     |
+| r        | Square root the accumulator                                                           |
+| c        | Output the accumulator as an ASCII character. NOTE: Numbers outside 0-255 do nothing. |
+| w        | Print "Hello, World!"                                                                 |
+| ;        | Reset the accumulator to zero.                                                        |
+
 ## Command Line Parameters
 All command line parameters begin with ``-``
 
