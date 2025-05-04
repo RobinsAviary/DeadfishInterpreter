@@ -13,7 +13,7 @@ It supports ``.df`` and ``.txt`` files being dragged into it/specified as well a
 | o        | Output the accumulator (As a number).                                                 |
 | h        | Halt the program.                                                                     |
 | r        | Square root the accumulator                                                           |
-| c        | Output the accumulator as an ASCII character. NOTE: Numbers outside 0-255 do nothing. |
+| c        | Output the accumulator as an ASCII character. _**NOTE:**_ Numbers outside 0-255 do nothing. |
 | w        | Print "Hello, World!"                                                                 |
 | ;        | Reset the accumulator to zero.                                                        |
 
