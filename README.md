@@ -6,13 +6,10 @@ It supports ``.df`` files being dragged into it/specified as well as a terminal 
 ## Command Line Parameters
 All command line parameters begin with ``-``
 
-- ``verbose``: Verbose text output. Mostly for internal debugging.
-- ``fix``: Fixes the [infamous accumulator bug](https://esolangs.org/wiki/Deadfish#Commands) in the original Deadfish implementation. Values will wrap around 0-255 as you would expect.
-
-All parameters can be shortened to their first letter.
+I may add these back, we'll see.
 
 ## Building
-This interpreter exists entirely within a single source code file, so building should be trivial with any program.
+This interpreter exists entirely within a source code file and a single library, so building should be trivial with any program.
 
 ## License
 This interpreter and its source code are provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
