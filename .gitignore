@@ -1,3 +1,5 @@
 *.vcxproj*
 *.txt
 x64/
+resource.h
+DeadfishInterpreter*
