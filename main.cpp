@@ -1,124 +1,52 @@
+#include "deadfish.h"
 #include <iostream>
-#include <string>
-#include <string_view>
 #include <filesystem>
 #include <fstream>
 
-std::string code;
-bool terminalActive = true;
+DeadfishInterpreter interpreter;
 
-int acc = 0;
+std::string version = "1.0.1";
 
-char argPrefix = '-';
-bool verboseOutput = false;
-bool mathFix = false;
-
-void accCheck() {
-	if (!mathFix) {
-		if (acc == -1 || acc == 256) acc = 0;
-	}
-	else {
-		// A fix for deadfish's odd implementation that better matches specifications.
-		while (acc < 0) {
-			acc += 256;
-		}
-		while (acc > 255) {
-			acc -= 256;
-		}
-	}
-}
-
-void opI() {
-	acc++;
-}
-
-void opD() {
-	acc--;
-}
-
-void opS() {
-	acc *= acc;
-}
-
-void opO() {
-	std::cout << acc << std::endl;
-}
-
-int main(int argc, char *argv[]) {
-	bool fileFound = false;
-
+int main(int argc, char** argv) {
 	for (int i = 0; i < argc; i++) {
-		std::string_view currentArg = argv[i];
+		std::string_view arg = argv[i];
 
-		if (currentArg.starts_with(argPrefix)) {
-			if (currentArg == argPrefix + "v" || currentArg == argPrefix + "verbose") {
-				verboseOutput = true;
-			}
-			else if (currentArg == argPrefix + "f" || currentArg == argPrefix + "fix") {
-				mathFix = true;
-			}
-		}
-
-		if (verboseOutput) std::cout << currentArg << std::endl;
-		
-		if (currentArg.ends_with(".df")) {
-			if (std::filesystem::exists(currentArg)) {
-				std::fstream file(static_cast<std::string>(currentArg));
-
-				std::string line;
-
-				while (std::getline(file, line)) {
-					code += line;
-					if (verboseOutput) std::cout << line << std::endl;
+		if (!arg.ends_with(".exe")) {
+			if (arg.ends_with(".df") || arg.ends_with(".txt")) {
+				if (std::filesystem::exists(arg)) {
+					std::ifstream file(static_cast<std::string>(arg));
+					std::string line;
+					std::string code = "";
+					while (std::getline(file, line)) {
+						code += line;
+					}
+					std::string result = interpreter.process(code);
+					std::fstream log("log.txt");
+					std::cout << result << std::endl;
+					if (result != "") log << result << std::endl;
+					log.close();
+					file.close();
+					return 0;
 				}
-
-				fileFound = true;
-				terminalActive = false;
-				i = argc;
-			};
-
-			//std::cout << argv[i] << std::endl;
-		}
-	}
-
-	// File-based interpreter. Slightly faster.
-	if (fileFound) {
-		std::ofstream log("log.txt");
-
-		for (char op : code) {
-			if (op == 'i') opI();
-			else if (op == 'd') opD();
-			else if (op == 's') opS();
-			else if (op == 'o') {
-				opO();
-				log << acc << " ";
 			}
-			else if (op == 'h') return 0;
-
-			accCheck();
 		}
-
-		log.close();
 	}
 
-	// Terminal interpreter.
-	while (terminalActive) {
+	std::cout << "Deadfish Interpreter v" << version << std::endl;
+
+	bool looping = true;
+	while (looping) {
 		std::cout << ">> ";
-		std::string typedCode;
-		std::cin >> typedCode;
-
-		for (int i = 0; i < typedCode.size(); i++) {
-			char op = typedCode[i];
-
-			if (op == 'i') opI();
-			else if (op == 'd') opD();
-			else if (op == 's') opS();
-			else if (op == 'o') opO();
-			else if (op == 'h') return 0;
-
-			accCheck();
+		std::string input;
+		std::cin >> input;
+		if (input == "cls") {
+			std::cout << "\033[2J\033[1;1H"; // Clear screen
 		}
+		else if (input == "reset") {
+			interpreter.reset();
+		}
+		else std::cout << interpreter.process(input) << std::endl;
 	}
-	
+
 	return 0;
 }
