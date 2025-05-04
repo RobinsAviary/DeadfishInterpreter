@@ -26,4 +26,4 @@ I may add these back, we'll see.
 This interpreter exists entirely within a source code file and a single library, so building should be trivial with any program.
 
 ## License
-This interpreter and its source code are provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
+This interpreter, library, and its source code are provided under the [MIT License](https://en.wikipedia.org/wiki/MIT_License). The original language and the superset are in the Public Domain. Use them as you wish.
