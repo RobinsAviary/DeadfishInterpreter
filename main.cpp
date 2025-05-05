@@ -15,6 +15,13 @@ void printVersion() {
 	std::cout << "Robinfish Interpreter v" << version << std::endl;
 }
 
+void printDYK() {
+	std::vector<std::string> hints = { "Robinfish is based on Deadfish!", "Robinfish is considered a superset for Deadfish!", "You can type 'help' for a list of supported operators, as well as commands.", "Files can use // to have comments.", "I made this entire thing while I was reallly toasted.", "Programming in Robinfish is horrrrrrrrrrible!" };
+	srand(GetTickCount64());
+	std::string hint = hints[rand() % hints.size()];
+	std::cout << "Did You Know: " << hint << std::endl;
+}
+
 int main(int argc, char** argv) {
 	// Search for the first file and process it.
 	for (int i = 0; i < argc; i++) {
@@ -48,10 +55,7 @@ int main(int argc, char** argv) {
 
 	// Actual interface for users.
 	printVersion();
-	std::vector<std::string> hints = { "Robinfish is based on Deadfish!", "Robinfish is considered a superset for Deadfish!", "You can type 'help' for a list of supported operators, as well as commands.", "Files can use // to have comments." };
-	srand(GetTickCount64());
-	std::string hint = hints[rand() % hints.size()];
-	std::cout << "Did You Know: " << hint << std::endl;
+	printDYK();
 
 	bool looping = true;
 	while (looping) {
@@ -63,6 +67,9 @@ int main(int argc, char** argv) {
 		}
 		else if (input == "reset") {
 			interpreter.reset();
+		}
+		else if (input == "dyk") {
+			printDYK();
 		}
 		else if (input == "help") {
 			auto dictionary = interpreter.getDictionary();

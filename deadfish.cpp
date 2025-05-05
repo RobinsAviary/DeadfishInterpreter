@@ -35,7 +35,7 @@ std::string throwOp = "^";
 std::string randOp = "D2";
 std::string equalsOp = "=";
 
-std::vector<std::string> dictionary = { resetAccOp, resetStackOp, quineOp, putOp, takeOp, reverseOp, robinmathOp, spaceOp, twoOp, divOp, skipOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+std::vector<std::string> dictionary = { equalsOp, randOp, throwOp, newlineOp, resetAccOp, resetStackOp, quineOp, putOp, takeOp, reverseOp, robinmathOp, spaceOp, twoOp, divOp, skipOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
 // NOTE: Dictionary needs to be sorted from largest to smallest
 
 std::vector<std::string> RobinfishInterpreter::getDictionary() {
@@ -139,7 +139,8 @@ std::string RobinfishInterpreter::process(std::string code) {
 			}
 			else if (op == equalsOp) {
 				if (acc >= 0 && acc < stack.size()) {
-					acc = stack[acc];
+					unsigned int index = stack.size() - 1 - acc;
+					acc = stack[index];
 				}
 			}
 			else if (op == randOp) {
