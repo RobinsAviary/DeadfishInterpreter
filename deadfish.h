@@ -5,7 +5,7 @@
 class RobinfishInterpreter {
 public:
 	bool mathFix = false; // Fixes deadfish's infamous bug
-	bool wrapMode = false; // Variable overflows/underflows like on the 6502.
+	bool robinfishMode = false;
 
 	std::string process(std::string code); // Returns values in a formatted string.
 
@@ -15,7 +15,7 @@ public:
 
 	std::vector<std::string> getDictionary();
 
-	std::vector<int> getStack();
+	inline std::vector<int> getStack() { return stack; }
 
 protected:
 	inline void opI() { acc += 1; }
@@ -28,4 +28,6 @@ protected:
 	void opH();
 
 	int acc = 0; // Accumulator
+
+	std::vector<int> stack;
 };

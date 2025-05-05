@@ -30,8 +30,11 @@ std::string takeOp = "<";
 std::string reverseOp = "r";
 std::string robinmathOp = "R";
 std::string spaceOp = " ";
+std::string newlineOp = "\n";
+std::string throwOp = "^";
+std::string randOp = "D2";
+std::string equalsOp = "=";
 
-std::vector<int> stack;
 std::vector<std::string> dictionary = { resetAccOp, resetStackOp, quineOp, putOp, takeOp, reverseOp, robinmathOp, spaceOp, twoOp, divOp, skipOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
 // NOTE: Dictionary needs to be sorted from largest to smallest
 
@@ -55,20 +58,15 @@ std::string RobinfishInterpreter::process(std::string code) {
 	bool halt = false;
 
 	while (codeView.length() > 0) {
-		if (mathFix) {
-			if (acc < 0 || acc > 255) {
-				if (wrapMode) {
-					while (acc < 0 || acc > 255) {
-						acc += sgn(acc) * -1 * 256;
-					}
-				}
-				else {
+		if (!robinfishMode) {
+			if (mathFix) {
+				if (acc < 0 || acc > 255) {
 					acc = 0;
 				}
 			}
-		}
-		else if (acc == -1 || acc == 256) {
-			acc = 0;
+			else if (acc == -1 || acc == 256) {
+				acc = 0;
+			}
 		}
 
 		std::string op = "";
@@ -127,6 +125,44 @@ std::string RobinfishInterpreter::process(std::string code) {
 			}
 			else if (op == resetOp) {
 				acc = 0;
+				stack.clear();
+				robinfishMode = false;
+			}
+			else if (op == resetAccOp) {
+				acc = 0;
+			}
+			else if (op == resetStackOp) {
+				stack.clear();
+			}
+			else if (op == quineOp) {
+				
+			}
+			else if (op == equalsOp) {
+				if (acc >= 0 && acc < stack.size()) {
+					acc = stack[acc];
+				}
+			}
+			else if (op == randOp) {
+				
+			}
+			else if (op == newlineOp) {
+				// Do nothing.
+			}
+			else if (op == putOp) {
+				stack.push_back(acc);
+			}
+			else if (op == throwOp) {
+				stack.pop_back();
+			}
+			else if (op == takeOp) {
+				acc = stack.back();
+				stack.pop_back();
+			}
+			else if (op == reverseOp) {
+				std::reverse(stack.begin(), stack.end());
+			}
+			else if (op == robinmathOp) {
+				robinfishMode = !robinfishMode;
 			}
 		}
 		else {
