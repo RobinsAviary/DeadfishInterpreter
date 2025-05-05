@@ -3,11 +3,6 @@ This is a [Deadfish](https://esolangs.org/wiki/Deadfish) [Interpreter](https://w
 
 It supports ``.df`` and ``.txt`` files being dragged into it/specified as well as a terminal mode when the application is directly opened.
 
-## Command Line Parameters
-All command line parameters begin with ``-``
-
-I may add these back, we'll see.
-
 ## Building
 This interpreter exists entirely within a source code file and a single library, so building should be trivial with any program.
 
