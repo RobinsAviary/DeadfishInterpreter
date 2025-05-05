@@ -15,6 +15,8 @@ public:
 
 	std::vector<std::string> getDictionary();
 
+	std::vector<int> getStack();
+
 protected:
 	inline void opI() { acc += 1; }
 	inline void opD() { acc -= 1; }

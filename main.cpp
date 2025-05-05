@@ -2,10 +2,14 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <ctime>
+#include <windows.h>
+
+std::string commentPrefix = "//";
 
 RobinfishInterpreter interpreter;
 
-std::string version = "1.0.2";
+std::string version = "1.0.3";
 
 void printVersion() {
 	std::cout << "Robinfish Interpreter v" << version << std::endl;
@@ -23,10 +27,15 @@ int main(int argc, char** argv) {
 					std::string line;
 					std::string code = "";
 					while (std::getline(file, line)) {
+						int pos = line.find(commentPrefix);
+						if (pos != std::string::npos) { // If we find a comment
+							// Remove the rest
+							line = line.substr(0, pos);
+						}
 						code += line;
 					}
 					std::string result = interpreter.process(code);
-					std::fstream log("log.txt");
+					std::fstream log("log.txt", std::ofstream::out | std::ofstream::trunc);
 					std::cout << result << std::endl;
 					if (result != "") log << result << std::endl;
 					log.close();
@@ -39,6 +48,10 @@ int main(int argc, char** argv) {
 
 	// Actual interface for users.
 	printVersion();
+	std::vector<std::string> hints = { "Robinfish is based on Deadfish!", "Robinfish is considered a superset for Deadfish!", "You can type 'help' for a list of supported operators, as well as commands.", "Files can use // to have comments." };
+	srand(GetTickCount64());
+	std::string hint = hints[rand() % hints.size()];
+	std::cout << "Did You Know: " << hint << std::endl;
 
 	bool looping = true;
 	while (looping) {

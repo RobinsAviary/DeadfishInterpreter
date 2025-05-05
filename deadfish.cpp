@@ -4,24 +4,36 @@
 #include <string_view>
 #include <filesystem>
 #include <fstream>
+#include <vector>
 
 std::string code;
 bool terminalActive = true;
 
 std::string divOp = "d2";
 std::string twoOp = "x2";
+std::string skipOp = "S";
 std::string incrementOp = "i";
 std::string decrementOp = "d";
 std::string squareOp = "s";
 std::string outputOp = "o";
 // Custom operators
 std::string haltOp = "h";
-std::string rootOp = "r";
+std::string rootOp = "sr";
 std::string charOp = "c"; // Makes sure the value is valid first.
 std::string worldOp = "w";
 std::string resetOp = ";";
+std::string resetAccOp = "#";
+std::string resetStackOp = "$";
+std::string quineOp = "q";
+std::string putOp = ">";
+std::string takeOp = "<";
+std::string reverseOp = "r";
+std::string robinmathOp = "R";
+std::string spaceOp = " ";
 
-std::vector<std::string> dictionary = { twoOp, divOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+std::vector<int> stack;
+std::vector<std::string> dictionary = { resetAccOp, resetStackOp, quineOp, putOp, takeOp, reverseOp, robinmathOp, spaceOp, twoOp, divOp, skipOp, incrementOp, decrementOp, squareOp, outputOp, haltOp, rootOp, charOp, worldOp, resetOp};
+// NOTE: Dictionary needs to be sorted from largest to smallest
 
 std::vector<std::string> RobinfishInterpreter::getDictionary() {
 	return dictionary;
@@ -74,11 +86,17 @@ std::string RobinfishInterpreter::process(std::string code) {
 		}
 
 		if (op != "") {
-			if (op == twoOp) {
+			if (op == spaceOp) {
+				// ALWAYS ignored.
+			}
+			else if (op == twoOp) {
 				opx2();
 			}
-			if (op == divOp) {
+			else if (op == divOp) {
 				opd2();
+			}
+			else if (op == skipOp) {
+				if (acc==0) codeView = codeView.substr(1);
 			}
 			else if (op == incrementOp) {
 				opI();
